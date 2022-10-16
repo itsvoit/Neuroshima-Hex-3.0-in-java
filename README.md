@@ -74,3 +74,42 @@ An attempt on making neuroshima hex in java for pc
 	
 ## Battle:
   When invoked the game should automatically calculate all the damage accounting for different bonuses (from Modules, HQs, passive Attributes, etc.) and also ask the player to make a choice in certain situations (eg. Medic taking damage for a unit between 2 different sources)
+  
+
+
+# Details
+
+- Attributes
+	- AttackAttr
+		- Melee Attack
+		- Range Attack
+		- Mortar
+		- Gauss Cannon
+		- Inflict Paralysis
+		- Shotgun
+		- Rocket Launcher
+		- Sniper
+		- 
+	- DefenseAttr
+		- Toughness
+		- Armor
+		- Deflect
+		- 
+	- PassiveAttr
+		- Net
+		- Scout
+		- Medic
+		- Officer
+		- Scoper
+		- Zombie
+		- Paralysis
+		- Agitator
+		- Sergeant
+		- 
+	- ActiveAttr
+		- Mobility
+		- Turn
+		- Charge
+		- Replace
+		- 
+		
