@@ -13,7 +13,7 @@ import GameBackend.Elements.BoardElements.Tiles.UnitTile;
  */
 
 public class Hex {
-	public static final int MAX_HEX_INDEX = 24;
+	public static final int MAX_HEX_INDEX = 19;
 
 	private final int index;
 	private UnitTile tile;
