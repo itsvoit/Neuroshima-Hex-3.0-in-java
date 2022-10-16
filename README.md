@@ -113,3 +113,7 @@ An attempt on making neuroshima hex in java for pc
 		- Replace
 		- 
 		
+
+
+## Useful resources:
+- https://portalgames.pl/en/wp-content/uploads/2015/07/EN_Neuroshima_Hex_3_0_rulebook.pdf
