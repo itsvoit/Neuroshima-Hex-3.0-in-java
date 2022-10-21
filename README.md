@@ -68,7 +68,7 @@ An attempt on making neuroshima hex in java for pc
 	
   Tile - Base class for all usable tiles in the game. Has attributes which define what the tile can do. Can be Placable or Instant
 	
-  Attributes - Define tile's properties. Can be passive (eg. medic heal or Toughness) or active (eg. warrior's attack or HQ's Mobility). Help with managing new Armies additions (just create new attributes and add them to new tiles). Can work on self or others attached to the unit that has it.
+  Attributes - Define tile's properties. Can be passive (eg. medic heal or Toughness) or active (eg. warrior's attack or HQ's Mobility). Help with managing new Armies additions (just create new attributes and add them to new tiles) - Attribute interface with use method. Just pass the board and let the attribute do the thing :)
 	
 	
 	
