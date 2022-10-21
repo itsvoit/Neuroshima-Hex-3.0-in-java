@@ -1,6 +1,6 @@
 package GameBackend.Tiles.Interfaces;
 
-import GameBackend.Attributes.Interfaces.Attribute;
+import GameBackend.Attributes.AttributeInterface;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ public abstract class Tile {
 		GROUND
 	}
 	protected Type type;
-	protected ArrayList<Attribute> attributes;
+	protected ArrayList<AttributeInterface> attributes;
 	protected String name;
 
 	public Tile(){
@@ -23,7 +23,7 @@ public abstract class Tile {
 		return type;
 	}
 
-	public void addAttribute(Attribute attr){
+	public void addAttribute(AttributeInterface attr){
 		attributes.add(attr);
 	}
 }
