@@ -176,6 +176,30 @@ public class Board {
 		return hexes[index].adjacentHexes;
 	}
 
+	private Hex getAdjacent(int index, Direction direction){
+		if (index < 0 || index > MAX_HEX_INDEX) return null;
+		Hex adjacentHex = getHex(index).adjacentHexes[direction.getValue()];
+
+		if (adjacentHex == null) return null;
+		else if (adjacentHex.tile == null) return getAdjacent(adjacentHex.index, direction);
+		else return adjacentHex;
+	}
+
+	public Hex[] getFirstInLine(int sourceIndex){
+		if (sourceIndex < 0 || sourceIndex > MAX_HEX_INDEX) return null;
+
+		Hex[] output = new Hex[Direction.DIRECTIONS];
+		Hex source = getHex(sourceIndex);
+
+		// Find first in line for each direction
+		// if none then return null
+		for (Direction direction : Direction.values()) {
+			output[direction.getValue()] = getAdjacent(sourceIndex, direction);
+		}
+
+		return output;
+	}
+
 	/**
 	 * Try to move the tile
 	 * @param targetIndex hex to be standing on after the move
