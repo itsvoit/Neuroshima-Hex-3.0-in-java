@@ -38,12 +38,12 @@ public class Board {
 	 * Provide adjacency logic
 	 *
 	 */
-	private static class Hex {
+	public static class Hex {
 
-		public final int index;
-		public UnitTile tile;
-		public GroundTile ground;
-		public Hex[] adjacentHexes;
+		final int index;
+		UnitTile tile;
+		GroundTile ground;
+		Hex[] adjacentHexes;
 
 		public Hex(int index){
 			if (index < 0 || index > MAX_HEX_INDEX) throw new IllegalArgumentException("Hex index out of bounds");
@@ -84,9 +84,6 @@ public class Board {
 			return false;
 		}
 
-//----------------------------------------
-//        Getters and setters
-
 		public Tile getTile() {
 			return tile;
 		}
@@ -116,6 +113,11 @@ public class Board {
 
 		public int getIndex() {
 			return index;
+		}
+
+		public void dealDamage(int attackValue){
+			if (tile == null) return;
+			tile.dealDamage(attackValue);
 		}
 
 		@Override
@@ -172,6 +174,30 @@ public class Board {
 	public Hex[] getAdjacent(int index){
 		if (index < 0 || index > MAX_HEX_INDEX) return null;
 		return hexes[index].adjacentHexes;
+	}
+
+	private Hex getAdjacent(int index, Direction direction){
+		if (index < 0 || index > MAX_HEX_INDEX) return null;
+		Hex adjacentHex = getHex(index).adjacentHexes[direction.getValue()];
+
+		if (adjacentHex == null) return null;
+		else if (adjacentHex.tile == null) return getAdjacent(adjacentHex.index, direction);
+		else return adjacentHex;
+	}
+
+	public Hex[] getFirstInLine(int sourceIndex){
+		if (sourceIndex < 0 || sourceIndex > MAX_HEX_INDEX) return null;
+
+		Hex[] output = new Hex[Direction.DIRECTIONS];
+		Hex source = getHex(sourceIndex);
+
+		// Find first in line for each direction
+		// if none then return null
+		for (Direction direction : Direction.values()) {
+			output[direction.getValue()] = getAdjacent(sourceIndex, direction);
+		}
+
+		return output;
 	}
 
 	/**
