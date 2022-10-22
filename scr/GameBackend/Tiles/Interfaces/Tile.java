@@ -1,6 +1,6 @@
 package GameBackend.Tiles.Interfaces;
 
-import GameBackend.Attributes.AttributeInterface;
+import GameBackend.Attributes.AttributeAbstract;
 import GameBackend.Game.Board;
 
 import java.util.ArrayList;
@@ -14,19 +14,25 @@ public abstract class Tile {
 	}
 	protected Type type;
 	protected Board.Hex hex;
-	protected ArrayList<AttributeInterface> attributes;
+	protected ArrayList<AttributeAbstract> attributes;
 	protected String name;
 
-	public Tile(){
-		attributes = new ArrayList<>();
+	public Tile(String name){
+		this.name = name;
+		this.attributes = new ArrayList<>();
 	}
 
 	public Type getType() {
 		return type;
 	}
 
-	public void addAttribute(AttributeInterface attr){
+	public void addAttribute(AttributeAbstract attr){
 		attributes.add(attr);
+		attr.setOwner(this);
+	}
+
+	public void setHex(Board.Hex hex) {
+		this.hex = hex;
 	}
 
 	public Board.Hex getHex() {

@@ -5,9 +5,6 @@ import GameBackend.Tiles.GroundTile;
 import GameBackend.Tiles.Interfaces.Tile;
 import GameBackend.Tiles.Interfaces.UnitTile;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Board {
 	public static final int MAX_HEX_INDEX = 19;
 	private static final int[][] adjacencyIndexes = {
@@ -71,7 +68,7 @@ public class Board {
 		 */
 		public Boolean rotateTile(Direction newDirection){
 			if (tile == null) return false;
-			return tile.turn(newDirection);
+			return tile.rotate(newDirection);
 		}
 
 		/**
@@ -102,6 +99,7 @@ public class Board {
 				case GROUND -> this.ground = (GroundTile) tile;
 				case MODULE, WARRIOR -> this.tile = (UnitTile) tile;
 			}
+			tile.setHex(this);
 
 			return true;
 		}
@@ -118,18 +116,24 @@ public class Board {
 		public void dealDamage(int attackValue){
 			if (tile == null) return;
 			tile.dealDamage(attackValue);
+			System.out.println("dealt " + attackValue + " damage to " + tile);
 		}
+
+
 
 		@Override
 		public String toString() {
 			StringBuilder builder = new StringBuilder();
-			builder.append("Hex{ ").append(index+1).append(", adjacentHexes: ");
-			for (int i = 0; i < Direction.DIRECTIONS; i++) {
-				if (adjacentHexes[i] == null) builder.append("null");
-				else builder.append(adjacentHexes[i].index+1);
-				builder.append(", ");
-			}
-			builder.delete(builder.length()-2, builder.length());
+			builder.append("Hex{ ").append(index+1).append(", ");
+			builder.append("tile: ").append(tile);
+//			builder.append(", adjacentHexes: ");
+//			for (int i = 0; i < Direction.DIRECTIONS; i++) {
+//				if (adjacentHexes[i] == null) builder.append("null");
+////				if (adjacentHexes[i] == null) continue;
+//				else builder.append(adjacentHexes[i].index+1);
+//				builder.append(", ");
+//			}
+//			builder.delete(builder.length()-2, builder.length());
 			builder.append("}");
 			return builder.toString();
 		}
@@ -234,5 +238,35 @@ public class Board {
 	public void removeTile(int index){
 		if (index < 0 || index >= MAX_HEX_INDEX) return;
 		hexes[index].removeTile();
+	}
+
+	public void battle(){
+		System.out.println("Battle...");
+		for (Hex hex : hexes){
+			if (hex.tile == null) continue;
+			System.out.println("Using attributes for " + hex);
+			hex.tile.useAttributes(this);
+		}
+	}
+
+	public void resolve(){
+		for (Hex hex : hexes){
+			if (hex.tile != null && hex.tile.isDead()) removeTile(hex.index);
+		}
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Board:\n");
+
+		for (int i = 0; i < MAX_HEX_INDEX; i++) {
+			if (hexes[i].tile == null) continue;
+			builder.append(hexes[i]);
+			builder.append(",\n");
+		}
+		builder.delete(builder.length()-2, builder.length());
+
+		return builder.toString();
 	}
 }

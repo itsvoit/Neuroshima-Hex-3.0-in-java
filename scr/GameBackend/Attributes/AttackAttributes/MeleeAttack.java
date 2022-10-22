@@ -6,20 +6,12 @@ import GameBackend.Game.Board;
 import GameBackend.Tiles.Interfaces.Tile;
 
 public class MeleeAttack extends AttributeAttackAbstract {
-	public MeleeAttack(String name, String description) {
-		super(name, description);
-	}
-
 	public MeleeAttack(String name, String description, Tile owner) {
 		super(name, description, owner);
 	}
 
-	public MeleeAttack(String name, String description, int[] attackValues) {
-		super(name, description, attackValues);
-	}
-
 	public MeleeAttack(String name, String description, int[] attackValues, Tile owner) {
-		super(name, description, attackValues, owner);
+		super(name, description, owner, attackValues);
 	}
 
 	// Implemented interface method
@@ -32,5 +24,10 @@ public class MeleeAttack extends AttributeAttackAbstract {
 		for (int i = 0; i < Direction.DIRECTIONS; i++) {
 			if (adjacentHexes[i] != null) adjacentHexes[i].dealDamage(attackValues[i]);
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Melee attack";
 	}
 }

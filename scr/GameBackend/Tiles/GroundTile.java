@@ -5,7 +5,8 @@ import GameBackend.Tiles.Interfaces.Tile;
 
 public class GroundTile extends Tile implements Placeable {
 
-	public GroundTile(){
+	public GroundTile(String name){
+		super(name);
 		this.type = Type.GROUND;
 	}
 }

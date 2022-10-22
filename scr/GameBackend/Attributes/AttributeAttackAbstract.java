@@ -7,57 +7,23 @@ public abstract class AttributeAttackAbstract extends AttributeAbstract {
 	// Fields
 	protected int[] attackValues;
 
-	// Constructors
-	private AttributeAttackAbstract(){
+	public AttributeAttackAbstract(String name, String description){
+		super(name, description);
+	}
+
+	public AttributeAttackAbstract(String name, String description, int[] attackValues){
+		this(name, description);
+		setAttackValues(attackValues);
+	}
+
+	public AttributeAttackAbstract(String name, String description, Tile owner) {
+		super(name, description, owner);
 		attackValues = new int[Direction.DIRECTIONS];
 	}
 
-	/**
-	 *
-	 * @param name Name of the attribute
-	 * @param description Detailed description of the attribute
-	 */
-	public AttributeAttackAbstract(String name, String description) {
-		super(name, description);
-	}
-
-	/**
-	 *
-	 * @param name Name of the attribute
-	 * @param description Detailed description of the attribute
-	 * @param owner Tile to which this attribute is attached to
-	 */
-	public AttributeAttackAbstract(String name, String description, Tile owner) {
-		super(name, description, owner);
-	}
-
-	/**
-	 *
-	 * @param name Name of the attribute
-	 * @param description Detailed description of the attribute
-	 * @param attackValues Array of ints where index is direction and content is the amount of damage to deal to that direction. If length is different from DIRECTIONS enum constant then default with be used (no damage)
-	 */
-	public AttributeAttackAbstract(String name, String description, int[] attackValues){
-		super(name, description);
-		if (attackValues.length == Direction.DIRECTIONS)
-			this.attackValues = attackValues;
-		else
-			this.attackValues = new int[Direction.DIRECTIONS];
-	}
-
-	/**
-	 *
-	 * @param name Name of the attribute
-	 * @param description Detailed description of the attribute
-	 * @param attackValues Array of ints where index is direction and content is the amount of damage to deal to that direction. If length is different from DIRECTIONS enum constant then default with be used (no damage)
-	 * @param owner Tile to which this attribute is attached to
-	 */
-	public AttributeAttackAbstract(String name, String description, int[] attackValues, Tile owner){
-		super(name, description, owner);
-		if (attackValues.length == Direction.DIRECTIONS)
-			this.attackValues = attackValues;
-		else
-			this.attackValues = new int[Direction.DIRECTIONS];
+	public AttributeAttackAbstract(String name, String description, Tile owner, int[] attackValues){
+		this(name, description, owner);
+		setAttackValues(attackValues);
 	}
 
 	// Methods

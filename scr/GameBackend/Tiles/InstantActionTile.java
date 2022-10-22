@@ -6,7 +6,8 @@ import GameBackend.Tiles.Interfaces.Usable;
 
 public class InstantActionTile extends Tile implements Usable {
 
-	public InstantActionTile(){
+	public InstantActionTile(String name){
+		super(name);
 		this.type = Type.INSTANT;
 	}
 

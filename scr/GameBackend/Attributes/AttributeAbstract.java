@@ -7,10 +7,6 @@ public abstract class AttributeAbstract implements AttributeInterface {
 	protected String description;
 	protected Tile owner;
 
-	public AttributeAbstract(){
-
-	}
-
 	public AttributeAbstract(String name, String description){
 		this.name = name;
 		this.description = description;
@@ -21,6 +17,8 @@ public abstract class AttributeAbstract implements AttributeInterface {
 		this.owner = owner;
 	}
 
-
+	public void setOwner(Tile owner){
+		this.owner = owner;
+	}
 
 }

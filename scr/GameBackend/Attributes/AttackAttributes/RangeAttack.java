@@ -6,20 +6,12 @@ import GameBackend.Game.Board;
 import GameBackend.Tiles.Interfaces.Tile;
 
 public class RangeAttack extends AttributeAttackAbstract {
-	public RangeAttack(String name, String description) {
-		super(name, description);
-	}
-
 	public RangeAttack(String name, String description, Tile owner) {
 		super(name, description, owner);
 	}
 
-	public RangeAttack(String name, String description, int[] attackValues) {
-		super(name, description, attackValues);
-	}
-
 	public RangeAttack(String name, String description, int[] attackValues, Tile owner) {
-		super(name, description, attackValues, owner);
+		super(name, description, owner, attackValues);
 	}
 
 	// Implemented interface method
