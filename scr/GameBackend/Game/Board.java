@@ -38,12 +38,12 @@ public class Board {
 	 * Provide adjacency logic
 	 *
 	 */
-	private static class Hex {
+	public static class Hex {
 
-		public final int index;
-		public UnitTile tile;
-		public GroundTile ground;
-		public Hex[] adjacentHexes;
+		final int index;
+		UnitTile tile;
+		GroundTile ground;
+		Hex[] adjacentHexes;
 
 		public Hex(int index){
 			if (index < 0 || index > MAX_HEX_INDEX) throw new IllegalArgumentException("Hex index out of bounds");
@@ -84,9 +84,6 @@ public class Board {
 			return false;
 		}
 
-//----------------------------------------
-//        Getters and setters
-
 		public Tile getTile() {
 			return tile;
 		}
@@ -116,6 +113,11 @@ public class Board {
 
 		public int getIndex() {
 			return index;
+		}
+
+		public void dealDamage(int attackValue){
+			if (tile == null) return;
+			tile.dealDamage(attackValue);
 		}
 
 		@Override
