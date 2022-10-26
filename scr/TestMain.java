@@ -1,4 +1,4 @@
-import GameBackend.Attributes.AttackAttributes.MeleeAttack;
+import GameBackend.Attributes.BattleAttributes.MeleeAttack;
 import GameBackend.Direction;
 import GameBackend.Game.Board;
 import GameBackend.Tiles.Interfaces.UnitTile;

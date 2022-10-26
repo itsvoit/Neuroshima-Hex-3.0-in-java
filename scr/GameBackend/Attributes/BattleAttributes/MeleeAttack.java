@@ -1,4 +1,4 @@
-package GameBackend.Attributes.AttackAttributes;
+package GameBackend.Attributes.BattleAttributes;
 
 import GameBackend.Attributes.AttributeAttackAbstract;
 import GameBackend.Direction;
