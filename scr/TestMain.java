@@ -26,9 +26,9 @@ public class TestMain {
 		attacks2[0] = 1;
 		attacks3[0] = 1;
 
-		warrior1.addAttribute(new MeleeAttack("Melee Attack", "Normal attack", attacks1, warrior1));
-		warrior2.addAttribute(new MeleeAttack("Melee Attack", "Normal attack", attacks2, warrior2));
-		warrior3.addAttribute(new MeleeAttack("Melee Attack", "Normal attack", attacks3, warrior3));
+		warrior1.addBattleAttribute(new MeleeAttack("Melee Attack", "Normal attack", attacks1, warrior1));
+		warrior2.addBattleAttribute(new MeleeAttack("Melee Attack", "Normal attack", attacks2, warrior2));
+		warrior3.addBattleAttribute(new MeleeAttack("Melee Attack", "Normal attack", attacks3, warrior3));
 
 		board.placeTile(4, warrior1);
 		board.placeTile(5, warrior2);

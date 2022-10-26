@@ -1,5 +1,6 @@
 package GameBackend.Tiles;
 
+import GameBackend.Game.Initiative;
 import GameBackend.Tiles.Interfaces.UnitTile;
 
 public class ModuleTile extends UnitTile {
@@ -8,6 +9,6 @@ public class ModuleTile extends UnitTile {
 		super(name);
 		this.type = Type.MODULE;
 		this.hasInitiative = false;
-		this.initiative = -1;
+		this.initiative = Initiative.PASSIVE;
 	}
 }

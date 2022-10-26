@@ -1,9 +1,14 @@
 package GameBackend.Game;
 
 import GameBackend.Direction;
+import GameBackend.Tiles.Damage;
 import GameBackend.Tiles.GroundTile;
 import GameBackend.Tiles.Interfaces.Tile;
 import GameBackend.Tiles.Interfaces.UnitTile;
+
+import javax.imageio.stream.IIOByteBuffer;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class Board {
 	public static final int MAX_HEX_INDEX = 19;
@@ -77,7 +82,9 @@ public class Board {
 		 * @return true if adjacent; false if not adjacent
 		 */
 		public Boolean isAdjacent(Hex hex){
-			//todo Boolean isAdjacent(Hex hex1, Hex hex2)
+			for (int i = 0; i < Direction.DIRECTIONS; i++)
+				if (adjacentHexes[i] == hex) return true;
+
 			return false;
 		}
 
@@ -105,8 +112,11 @@ public class Board {
 		}
 
 		public void removeTile(){
-			this.ground = null;
 			this.tile = null;
+		}
+
+		public void removeGround(){
+			this.ground = null;
 		}
 
 		public int getIndex() {
