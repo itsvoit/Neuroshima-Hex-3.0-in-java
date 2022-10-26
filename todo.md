@@ -1,3 +1,10 @@
+#Current task order
+
+- Finish Attributes
+- Create base Armies
+- Implement all Battle logic
+- Start work on Hand logic and per turn Tile placement
+
 #Main tasks
 
 - Implement Basic Attributes
