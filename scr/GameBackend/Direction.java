@@ -27,6 +27,10 @@ public enum Direction {
 		return value;
 	}
 
+	public Direction getOpposite(){
+		return values()[(value+(DIRECTIONS/2))%DIRECTIONS];
+	}
+
 	public static Direction getByValue(int value){
 		if (value < 0) value = Math.abs(value);
 		return values()[(value)%DIRECTIONS];
