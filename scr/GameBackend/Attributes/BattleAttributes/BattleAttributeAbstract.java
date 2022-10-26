@@ -1,27 +1,28 @@
-package GameBackend.Attributes;
+package GameBackend.Attributes.BattleAttributes;
 
+import GameBackend.Attributes.AttributeAbstract;
 import GameBackend.Direction;
 import GameBackend.Tiles.Interfaces.Tile;
 
-public abstract class AttributeAttackAbstract extends AttributeAbstract {
+public abstract class BattleAttributeAbstract extends AttributeAbstract {
 	// Fields
 	protected int[] attackValues;
 
-	public AttributeAttackAbstract(String name, String description){
+	public BattleAttributeAbstract(String name, String description){
 		super(name, description);
 	}
 
-	public AttributeAttackAbstract(String name, String description, int[] attackValues){
+	public BattleAttributeAbstract(String name, String description, int[] attackValues){
 		this(name, description);
 		setAttackValues(attackValues);
 	}
 
-	public AttributeAttackAbstract(String name, String description, Tile owner) {
+	public BattleAttributeAbstract(String name, String description, Tile owner) {
 		super(name, description, owner);
 		attackValues = new int[Direction.DIRECTIONS];
 	}
 
-	public AttributeAttackAbstract(String name, String description, Tile owner, int[] attackValues){
+	public BattleAttributeAbstract(String name, String description, Tile owner, int[] attackValues){
 		this(name, description, owner);
 		setAttackValues(attackValues);
 	}

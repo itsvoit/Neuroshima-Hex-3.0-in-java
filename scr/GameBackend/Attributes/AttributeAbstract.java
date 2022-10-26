@@ -1,8 +1,9 @@
 package GameBackend.Attributes;
 
+import GameBackend.Game.Board;
 import GameBackend.Tiles.Interfaces.Tile;
 
-public abstract class AttributeAbstract implements AttributeInterface {
+public abstract class AttributeAbstract{
 	protected String name;
 	protected String description;
 	protected Tile owner;
@@ -20,5 +21,7 @@ public abstract class AttributeAbstract implements AttributeInterface {
 	public void setOwner(Tile owner){
 		this.owner = owner;
 	}
+
+	public abstract void use(Board board);
 
 }
