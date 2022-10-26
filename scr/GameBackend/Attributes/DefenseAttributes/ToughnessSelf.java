@@ -11,10 +11,16 @@ public class ToughnessSelf extends DefenseAttributeAbstract {
 
 	public ToughnessSelf(String name, String description) {
 		super(name, description);
+		value = 0;
+		damageAbsorbed = 0;
+		resolutionWeight = 10;
 	}
 
 	public ToughnessSelf(String name, String description, Tile owner) {
 		super(name, description, owner);
+		value = 0;
+		damageAbsorbed = 0;
+		resolutionWeight = 10;
 	}
 
 	public ToughnessSelf(String name, String description, int value) {
@@ -28,7 +34,26 @@ public class ToughnessSelf extends DefenseAttributeAbstract {
 	}
 
 	@Override
-	public void use(Board board) {
-
+	public void use(ArrayList<Damage> damage) {
+		for (Damage dmg : damage){
+			if (damageAbsorbed >= value) break;
+			// damage to be taken is greater than what can be absorbed
+			if ((dmg.damage()) > (value - damageAbsorbed)){
+				int tempDamageAbsorbed = value - damageAbsorbed;
+				if (tempDamageAbsorbed > dmg.melee){
+					tempDamageAbsorbed -= dmg.melee;
+					dmg.melee = 0;
+					dmg.range -= tempDamageAbsorbed;
+				} else {
+					dmg.melee -= tempDamageAbsorbed;
+				}
+			}
+			// damage to be taken can be fully absorbed
+			else {
+				damageAbsorbed += dmg.damage();
+				dmg.melee = 0;
+				dmg.range = 0;
+			}
+		}
 	}
 }
