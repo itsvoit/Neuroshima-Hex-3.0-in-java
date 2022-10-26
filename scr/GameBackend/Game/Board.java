@@ -118,7 +118,10 @@ public class Board {
 			tile.dealDamage(damage);
 		}
 
-
+		public Initiative getInitiative(){
+			if (tile == null) return Initiative.NONE;
+			return tile.getInitiative();
+		}
 
 		@Override
 		public String toString() {
@@ -239,12 +242,43 @@ public class Board {
 		hexes[index].removeTile();
 	}
 
+	private ArrayList<Stack<Hex>> prepareForBattleByInitiative(){
+		PriorityQueue<Hex> queue = new PriorityQueue<>(Comparator.comparing(Hex::getInitiative));
+		queue.addAll(List.of(hexes));
+		ArrayList<Stack<Hex>> initiatives = new ArrayList<>();
+		Stack<Hex> currentInitiative = new Stack<>();
+
+		// create ArrayList of Stacks that contain Hexes
+		// each Stack represents an Initiative in Battle
+		for (Hex hex = queue.poll(); hex != null && hex.getInitiative() != Initiative.NONE; hex = queue.poll()){
+			if (currentInitiative.isEmpty() || hex.getInitiative() == currentInitiative.peek().getInitiative())
+				currentInitiative.add(hex);
+			else {
+				initiatives.add(currentInitiative);
+				currentInitiative = new Stack<>();
+			}
+		}
+		if (!currentInitiative.isEmpty())
+			initiatives.add(currentInitiative);
+
+		return initiatives;
+	}
+
 	public void battle(){
 		System.out.println("Battle...");
-		for (Hex hex : hexes){
-			if (hex.tile == null) continue;
-			System.out.println("Using attributes for " + hex);
-			hex.tile.useAttributes(this);
+
+		ArrayList<Stack<Hex>> initiatives = prepareForBattleByInitiative();
+
+		for(Stack<Hex> currentInitiative : initiatives) {
+			for(Hex hex : hexes){
+				if (hex.tile != null)
+					hex.tile.usePassiveAttributes(this);
+			}
+			for (Hex hex : currentInitiative) {
+				System.out.println("Using Battle attributes for " + hex);
+				hex.tile.useBattleAttributes(this);
+			}
+			resolve();
 		}
 	}
 
