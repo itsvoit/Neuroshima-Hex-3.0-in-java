@@ -1,11 +1,11 @@
 package GameBackend.Attributes.BattleAttributes;
 
-import GameBackend.Attributes.AttributeAttackAbstract;
 import GameBackend.Direction;
 import GameBackend.Game.Board;
+import GameBackend.Tiles.Damage;
 import GameBackend.Tiles.Interfaces.Tile;
 
-public class RangeAttack extends AttributeAttackAbstract {
+public class RangeAttack extends BattleAttributeAbstract {
 	public RangeAttack(String name, String description, Tile owner) {
 		super(name, description, owner);
 	}
@@ -22,7 +22,10 @@ public class RangeAttack extends AttributeAttackAbstract {
 		Board.Hex[] firstInLine = board.getFirstInLine(owner.getHex().getIndex());
 
 		for (int i = 0; i < Direction.DIRECTIONS; i++) {
-			if (firstInLine[i] != null) firstInLine[i].dealDamage(attackValues[i]);
+			if (firstInLine[i] != null)
+				firstInLine[i].dealDamage(
+						new Damage(0, attackValues[i], Direction.getByValue(i).getOpposite())
+				);
 		}
 	}
 }

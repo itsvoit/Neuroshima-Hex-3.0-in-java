@@ -1,25 +1,31 @@
 package GameBackend.Tiles.Interfaces;
 
-import GameBackend.Attributes.AttributeInterface;
+import GameBackend.Attributes.BattleAttributes.BattleAttributeAbstract;
+import GameBackend.Attributes.DefenseAttributes.DefenseAttributeAbstract;
+import GameBackend.Attributes.PassiveAttributes.PassiveAttributeAbstract;
 import GameBackend.Direction;
 import GameBackend.Game.Board;
+import GameBackend.Game.Initiative;
+import GameBackend.Tiles.Damage;
+
+import java.util.ArrayList;
 
 public abstract class UnitTile extends Tile implements Placeable {
 
 	protected Direction rotation;
 	protected boolean hasInitiative;
-	protected int initiative;
-	protected int damageTaken;
+	protected Initiative initiative;
 	protected int health;
+	protected ArrayList<Damage> damageTaken;
 
 	public UnitTile(String name){
 		super(name);
 		health = 1;
 	}
 
-	public UnitTile(String name, int health){
+	public UnitTile(String name, Initiative initiative){
 		this(name);
-		this.health = health;
+		this.initiative = initiative;
 	}
 
 	public boolean rotate(Direction newDirection){
@@ -29,19 +35,39 @@ public abstract class UnitTile extends Tile implements Placeable {
 		return true;
 	}
 
-	public void dealDamage(int attackValue){
-		damageTaken += attackValue;
+	public void dealDamage(Damage damage){
+		damageTaken.add(damage);
 	}
 
-	public boolean isDead(){
-		return damageTaken >= health;
-	}
-
-	public void useAttributes(Board board){
-		for (AttributeInterface attr : attributes){
-			attr.use(board);
-			System.out.println("Current attr: " + attr);
+	public boolean resolveDamage(){
+		//todo boolean UnitTile::resolveDamage()
+		for (DefenseAttributeAbstract attr : defenseAttributes){
+			attr.use(damageTaken);
 		}
+
+		for (Damage damage : damageTaken){
+			health -= damage.melee + damage.range;
+		}
+
+		return health > 0;
+	}
+
+	public void useBattleAttributes(Board board){
+		for (BattleAttributeAbstract attr : battleAttributes){
+			attr.use(board);
+			System.out.println("Current battle attr: " + attr);
+		}
+	}
+
+	public void usePassiveAttributes(Board board){
+		for (PassiveAttributeAbstract attr : passiveAttributes){
+			attr.use(board);
+			System.out.println("Current passive attr: " + attr);
+		}
+	}
+
+	public Initiative getInitiative() {
+		return initiative;
 	}
 
 	@Override

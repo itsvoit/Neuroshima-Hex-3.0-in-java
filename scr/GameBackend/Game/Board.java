@@ -113,10 +113,9 @@ public class Board {
 			return index;
 		}
 
-		public void dealDamage(int attackValue){
+		public void dealDamage(Damage damage){
 			if (tile == null) return;
-			tile.dealDamage(attackValue);
-			System.out.println("dealt " + attackValue + " damage to " + tile);
+			tile.dealDamage(damage);
 		}
 
 
@@ -251,7 +250,8 @@ public class Board {
 
 	public void resolve(){
 		for (Hex hex : hexes){
-			if (hex.tile != null && hex.tile.isDead()) removeTile(hex.index);
+			if (hex.tile != null && hex.tile.resolveDamage())
+				removeTile(hex.index);
 		}
 	}
 

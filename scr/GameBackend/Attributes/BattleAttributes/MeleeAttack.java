@@ -1,11 +1,11 @@
 package GameBackend.Attributes.BattleAttributes;
 
-import GameBackend.Attributes.AttributeAttackAbstract;
 import GameBackend.Direction;
 import GameBackend.Game.Board;
+import GameBackend.Tiles.Damage;
 import GameBackend.Tiles.Interfaces.Tile;
 
-public class MeleeAttack extends AttributeAttackAbstract {
+public class MeleeAttack extends BattleAttributeAbstract {
 	public MeleeAttack(String name, String description, Tile owner) {
 		super(name, description, owner);
 	}
@@ -22,7 +22,10 @@ public class MeleeAttack extends AttributeAttackAbstract {
 		Board.Hex[] adjacentHexes = board.getAdjacent(owner.getHex().getIndex());
 
 		for (int i = 0; i < Direction.DIRECTIONS; i++) {
-			if (adjacentHexes[i] != null) adjacentHexes[i].dealDamage(attackValues[i]);
+			if (adjacentHexes[i] != null)
+				adjacentHexes[i].dealDamage(
+						new Damage(attackValues[i], 0, Direction.getByValue(i).getOpposite())
+				);
 		}
 	}
 
