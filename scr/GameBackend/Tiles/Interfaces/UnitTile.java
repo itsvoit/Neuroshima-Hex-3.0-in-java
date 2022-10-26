@@ -9,6 +9,7 @@ import GameBackend.Game.Initiative;
 import GameBackend.Tiles.Damage;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public abstract class UnitTile extends Tile implements Placeable {
 
@@ -35,12 +36,16 @@ public abstract class UnitTile extends Tile implements Placeable {
 		return true;
 	}
 
+	public ArrayList<Damage> getDamageTaken(){
+		return damageTaken;
+	}
+
 	public void dealDamage(Damage damage){
 		damageTaken.add(damage);
 	}
 
 	public boolean resolveDamage(){
-		//todo boolean UnitTile::resolveDamage()
+		defenseAttributes.sort(null); // comp: null -> use natural ordering of elements
 		for (DefenseAttributeAbstract attr : defenseAttributes){
 			attr.use(damageTaken);
 		}
