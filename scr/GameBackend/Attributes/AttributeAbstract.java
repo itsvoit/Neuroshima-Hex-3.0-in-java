@@ -22,6 +22,8 @@ public abstract class AttributeAbstract{
 		this.owner = owner;
 	}
 
-	public abstract void use(Board board);
+	public void use(Board board){
+
+	}
 
 }

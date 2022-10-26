@@ -133,6 +133,11 @@ public class Board {
 			return tile.getInitiative();
 		}
 
+		public ArrayList<Damage> getDamageTaken(){
+			if (tile == null) return null;
+			return tile.getDamageTaken();
+		}
+
 		@Override
 		public String toString() {
 			StringBuilder builder = new StringBuilder();

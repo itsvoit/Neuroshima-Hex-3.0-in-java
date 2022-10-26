@@ -13,4 +13,8 @@ public class Damage {
 		this.sourceDirection = sourceDirection;
 	}
 
+	public int damage(){
+		return melee + range;
+	}
+
 }
