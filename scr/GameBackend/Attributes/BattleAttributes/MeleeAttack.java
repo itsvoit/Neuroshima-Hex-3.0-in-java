@@ -5,6 +5,7 @@ import GameBackend.Game.Board;
 import GameBackend.Game.Hex;
 import GameBackend.Tiles.Damage;
 import GameBackend.Tiles.Interfaces.Tile;
+import GameBackend.Tiles.Interfaces.UnitTile;
 
 public class MeleeAttack extends BattleAttributeAbstract {
 	public MeleeAttack(String name, String description, Tile owner) {
@@ -25,7 +26,11 @@ public class MeleeAttack extends BattleAttributeAbstract {
 		for (int i = 0; i < Direction.DIRECTIONS; i++) {
 			if (adjacentHexes[i] != null)
 				adjacentHexes[i].dealDamage(
-						new Damage(attackValues[i], 0, Direction.getByValue(i).getOpposite())
+						new Damage(
+								attackValues[i] + ((UnitTile)owner).getBonusMeleeDamage(),
+								0,
+								Direction.getByValue(i).getOpposite()
+						)
 				);
 		}
 	}

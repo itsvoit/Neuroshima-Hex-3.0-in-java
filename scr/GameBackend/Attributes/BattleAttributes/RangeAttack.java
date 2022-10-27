@@ -5,6 +5,7 @@ import GameBackend.Game.Board;
 import GameBackend.Game.Hex;
 import GameBackend.Tiles.Damage;
 import GameBackend.Tiles.Interfaces.Tile;
+import GameBackend.Tiles.Interfaces.UnitTile;
 
 public class RangeAttack extends BattleAttributeAbstract {
 	public RangeAttack(String name, String description, Tile owner) {
@@ -25,7 +26,11 @@ public class RangeAttack extends BattleAttributeAbstract {
 		for (int i = 0; i < Direction.DIRECTIONS; i++) {
 			if (firstInLine[i] != null)
 				firstInLine[i].dealDamage(
-						new Damage(0, attackValues[i], Direction.getByValue(i).getOpposite())
+						new Damage(
+								0,
+								attackValues[i] + ((UnitTile)owner).getBonusRangeDamage(),
+								Direction.getByValue(i).getOpposite()
+						)
 				);
 		}
 	}
