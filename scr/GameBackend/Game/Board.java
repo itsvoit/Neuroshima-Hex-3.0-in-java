@@ -131,42 +131,53 @@ public class Board {
 		hexes[index].removeTile();
 	}
 
-	private ArrayList<Stack<Hex>> prepareForBattleByInitiative(){
-		PriorityQueue<Hex> queue = new PriorityQueue<>(Comparator.comparing(Hex::getInitiative));
-		queue.addAll(List.of(hexes));
-		ArrayList<Stack<Hex>> initiatives = new ArrayList<>();
-		Stack<Hex> currentInitiative = new Stack<>();
+	private Initiative getMaxInitiative(){
 
-		// create ArrayList of Stacks that contain Hexes
-		// each Stack represents an Initiative in Battle
-		for (Hex hex = queue.poll(); hex != null && hex.getInitiative() != Initiative.NONE; hex = queue.poll()){
-			if (currentInitiative.isEmpty() || hex.getInitiative() == currentInitiative.peek().getInitiative())
-				currentInitiative.add(hex);
-			else {
-				initiatives.add(currentInitiative);
-				currentInitiative = new Stack<>();
+		return Initiative.NONE;
+	}
+
+	private void clearBonuses(){
+		for (Hex hex : this.hexes){
+			if (hex.unitTile == null) continue;
+			hex.unitTile.clearBonuses();
+		}
+	}
+
+	private void applyPassiveAttr(){
+		for (Hex hex : this.hexes){
+			if (hex.unitTile == null) continue;
+			hex.unitTile.usePassiveAttributes(this);
+		}
+	}
+
+	private Stack<Hex> getHexesByInitiative(Initiative initiative){
+		Stack<Hex> outputInits = new Stack<>();
+
+		for (Hex hex : this.hexes){
+			PriorityQueue<Initiative> hexInits = hex.getBattleInitiatives();
+			if (hexInits == null) continue;
+			if (hexInits.peek() == initiative) {
+				outputInits.add(hex);
+				hexInits.poll();
 			}
 		}
-		if (!currentInitiative.isEmpty())
-			initiatives.add(currentInitiative);
 
-		return initiatives;
+		return outputInits;
 	}
 
 	public void battle(){
 		System.out.println("Battle...");
 
-		ArrayList<Stack<Hex>> initiatives = prepareForBattleByInitiative();
+		for (Initiative init = getMaxInitiative(); init != Initiative.PASSIVE; init = init.decrease()){
+			clearBonuses();
+			applyPassiveAttr();
+			Stack<Hex> currentInit = getHexesByInitiative(init);
 
-		for(Stack<Hex> currentInitiative : initiatives) {
-			for(Hex hex : hexes){
-				if (hex.tile != null)
-					hex.tile.usePassiveAttributes(this);
-			}
-			for (Hex hex : currentInitiative) {
+			for (Hex hex : currentInit){
 				System.out.println("Using Battle attributes for " + hex);
 				hex.unitTile.useBattleAttributes(this);
 			}
+
 			resolve();
 		}
 	}
