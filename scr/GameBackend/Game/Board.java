@@ -136,15 +136,15 @@ public class Board {
 		return Initiative.NONE;
 	}
 
-	private void clearBonuses(){
+	private void prepareHexesForBattle(){
+		// get base initiatives
 		for (Hex hex : this.hexes){
 			if (hex.unitTile == null) continue;
-			hex.unitTile.clearBonuses();
+			hex.unitTile.prepareTileForBattle();
 		}
-	}
 
-	private void applyPassiveAttr(){
-		for (Hex hex : this.hexes){
+		// apply passive attributes
+		for (Hex hex : this.hexes) {
 			if (hex.unitTile == null) continue;
 			hex.unitTile.usePassiveAttributes(this);
 		}
@@ -169,8 +169,7 @@ public class Board {
 		System.out.println("Battle...");
 
 		for (Initiative init = getMaxInitiative(); init != Initiative.PASSIVE; init = init.decrease()){
-			clearBonuses();
-			applyPassiveAttr();
+			prepareHexesForBattle();
 			Stack<Hex> currentInit = getHexesByInitiative(init);
 
 			for (Hex hex : currentInit){

@@ -64,7 +64,7 @@ public class Hex {
 		return false;
 	}
 
-	public Tile getUnitTile() {
+	public UnitTile getUnitTile() {
 		return unitTile;
 	}
 
