@@ -23,26 +23,31 @@ public enum Initiative{
 		this.index = value+2;
 	}
 
-	Initiative higher(){
+	public int getValue(){
+		return value;
+	}
+
+	public Initiative higher(){
 		if (value == -2) return NONE;
 		if (value == -1) return PASSIVE;
 		if (value == 10) return TEN;
 		return values()[index+1];
 	}
 
-	Initiative lower(){
+	public Initiative lower(){
 		if (value < 0) return NONE;
 		if (value == 0) return ZERO;
 		return values()[index-1];
 	}
 
-	Initiative decrease(){
+	public Initiative decrease(){
 		if (value == -2) return NONE;
 		return values()[value-1];
 	}
 
-	Initiative increase(){
+	public Initiative increase(){
 		if (value == 10) return TEN;
 		return values()[index+1];
 	}
+
 }
