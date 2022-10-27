@@ -6,6 +6,7 @@ import GameBackend.Attributes.PassiveAttributes.PassiveAttributeAbstract;
 import GameBackend.Direction;
 import GameBackend.Game.Board;
 import GameBackend.Game.Initiative;
+import GameBackend.Game.InitiativeGreaterFirstComp;
 import GameBackend.Tiles.Damage;
 
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public abstract class UnitTile extends Tile implements Placeable {
 	// sorted by the highest Initiative first
 	protected PriorityQueue<Initiative> battleInitiatives;
 	protected ArrayList<Damage> damageTaken;
+	protected int bonusMeleeDamage;
+	protected int bonusRangeDamage;
 	public boolean netted;
 
 	public UnitTile(String name){
@@ -35,6 +38,7 @@ public abstract class UnitTile extends Tile implements Placeable {
 		this.passiveAttributes = new ArrayList<>();
 		this.defenseAttributes = new ArrayList<>();
 		this.baseInitiatives = new TreeSet<>();
+		this.battleInitiatives = new PriorityQueue<>(new InitiativeGreaterFirstComp());
 	}
 
 	public UnitTile(String name, TreeSet<Initiative> baseInitiatives){
@@ -62,6 +66,22 @@ public abstract class UnitTile extends Tile implements Placeable {
 
 		rotation = newDirection;
 		return true;
+	}
+
+	public void setBonusMeleeDamage(int bonusMeleeDamage) {
+		this.bonusMeleeDamage = bonusMeleeDamage;
+	}
+
+	public void setBonusRangeDamage(int bonusRangeDamage) {
+		this.bonusRangeDamage = bonusRangeDamage;
+	}
+
+	public int getBonusMeleeDamage() {
+		return bonusMeleeDamage;
+	}
+
+	public int getBonusRangeDamage() {
+		return bonusRangeDamage;
 	}
 
 	public ArrayList<Damage> getDamageTaken(){
@@ -99,10 +119,11 @@ public abstract class UnitTile extends Tile implements Placeable {
 		}
 	}
 
-	public void clearBonuses(){
+	public void prepareTileForBattle(){
 		battleInitiatives.clear();
 		battleInitiatives.addAll(baseInitiatives);
-
+		bonusMeleeDamage = 0;
+		bonusRangeDamage = 0;
 		// todo : clear other bonuses (additional damage, nets, etc.)
 	}
 
@@ -110,12 +131,21 @@ public abstract class UnitTile extends Tile implements Placeable {
 		return baseInitiatives;
 	}
 
+	public void setBaseInitiatives(TreeSet<Initiative> baseInitiatives) {
+		this.baseInitiatives = baseInitiatives;
+	}
+
 	public PriorityQueue<Initiative> getBattleInitiatives() {
 		return battleInitiatives;
+	}
+
+	public void setBattleInitiatives(PriorityQueue<Initiative> battleInitiatives) {
+		this.battleInitiatives = battleInitiatives;
 	}
 
 	@Override
 	public String toString() {
 		return name + ", init=" + baseInitiatives;
 	}
+
 }
