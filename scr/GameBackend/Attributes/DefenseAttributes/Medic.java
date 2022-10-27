@@ -2,10 +2,10 @@ package GameBackend.Attributes.DefenseAttributes;
 
 import GameBackend.Direction;
 import GameBackend.Game.Board;
+import GameBackend.Game.Hex;
 import GameBackend.Tiles.Damage;
 import GameBackend.Tiles.Interfaces.Tile;
 
-import java.io.DataInput;
 import java.util.ArrayList;
 
 public class Medic extends DefenseAttributeAbstract {
@@ -19,7 +19,7 @@ public class Medic extends DefenseAttributeAbstract {
 
 	@Override
 	public void use(Board board) {
-		Board.Hex[] adjacentHexes = board.getAdjacent(owner.getHex().getIndex());
+		Hex[] adjacentHexes = board.getAdjacent(owner.getHex().getIndex());
 		ArrayList<Damage> damageTakenByAdjacent = new ArrayList<>();
 
 		for (Direction direction : directions){

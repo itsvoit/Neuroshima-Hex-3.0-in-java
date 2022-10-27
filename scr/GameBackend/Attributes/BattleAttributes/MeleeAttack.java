@@ -2,6 +2,7 @@ package GameBackend.Attributes.BattleAttributes;
 
 import GameBackend.Direction;
 import GameBackend.Game.Board;
+import GameBackend.Game.Hex;
 import GameBackend.Tiles.Damage;
 import GameBackend.Tiles.Interfaces.Tile;
 
@@ -19,7 +20,7 @@ public class MeleeAttack extends BattleAttributeAbstract {
 	public void use(Board board) {
 		if (owner == null || owner.getHex() == null) return;
 
-		Board.Hex[] adjacentHexes = board.getAdjacent(owner.getHex().getIndex());
+		Hex[] adjacentHexes = board.getAdjacent(owner.getHex().getIndex());
 
 		for (int i = 0; i < Direction.DIRECTIONS; i++) {
 			if (adjacentHexes[i] != null)
