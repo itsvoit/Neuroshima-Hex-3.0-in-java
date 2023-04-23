@@ -1,4 +1,4 @@
-# Neuroshima-Hex-3.0-in-java
+# Neuroshima-Hex-3.0-in-java (abandoned)
 
 ## Neuroshima Hex 3.0
 
